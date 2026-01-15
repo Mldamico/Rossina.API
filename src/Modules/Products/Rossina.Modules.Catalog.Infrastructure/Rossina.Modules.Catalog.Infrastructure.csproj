@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Rossina.Modules.Products.Infrastructure</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="EFCore.NamingConventions" Version="10.0.0"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Rossina.Modules.Catalog.Application\Rossina.Modules.Catalog.Application.csproj"/>
+        <ProjectReference Include="..\Rossina.Modules.Catalog.Presentation\Rossina.Modules.Catalog.Presentation.csproj"/>
+    </ItemGroup>
+
+
+</Project>

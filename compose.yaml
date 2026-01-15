@@ -1,0 +1,23 @@
+﻿services:
+  rossina.api:
+    image: rossina.api
+    container_name: Rossina.Api
+    build:
+      context: .
+      dockerfile: src/API/Rossina.API/Dockerfile
+    ports:
+      - 5000:8080
+      - 5001:8081
+  
+  rossina.database:
+    image: postgres:latest
+    container_name: Rossina.Database
+    environment:
+      - POSTGRES_DB=rossina
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/limb/postgresql/data
+    ports:
+      - 5432:5432
+  

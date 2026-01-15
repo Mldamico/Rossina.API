@@ -1,0 +1,21 @@
+﻿using Rossina.Modules.Catalog.Domain.Catalog;
+
+namespace Rossina.Modules.Catalog.Domain.Abstractions;
+
+public abstract class Entity
+{
+    private readonly List<IDomainEvent> _domainEvents = [];
+    protected Entity(){}
+
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
+
+    protected void RaiseDomainEvent(IDomainEvent domainEvent)
+    {
+        _domainEvents.Add(domainEvent);
+    }
+}
