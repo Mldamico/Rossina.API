@@ -1,4 +1,5 @@
 ﻿using Rossina.Modules.Catalog.Domain.Abstractions;
+using Rossina.Modules.Catalog.Domain.Catalog.Variants;
 
 namespace Rossina.Modules.Catalog.Domain.Catalog;
 
@@ -55,6 +56,28 @@ public sealed class Product : Entity
 
         return Result.Success();
 
+    }
+    
+    public Result UpdateVariant(
+        string size,
+        string color,
+        decimal price,
+        int stock)
+    {
+        var variant = _variants
+            .FirstOrDefault(v => v.Size == size && v.Color == color);
+
+        var priceResult = variant.UpdatePrice(price);
+        if (priceResult.IsFailure)
+            return priceResult;
+
+        var stockResult = variant.UpdateStock(stock);
+        if (stockResult.IsFailure)
+            return stockResult;
+
+        UpdatedAt = DateTime.UtcNow;
+
+        return Result.Success();
     }
     
 }

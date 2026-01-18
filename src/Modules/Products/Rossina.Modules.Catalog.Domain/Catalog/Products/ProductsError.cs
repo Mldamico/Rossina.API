@@ -7,6 +7,4 @@ public static class ProductsError
     public static Error NotFound(Guid productId) =>
         Error.NotFound("Products.NotFound",$"The product with ID {productId} was not found.");
     
-    public static Error VariantError(Guid productId) =>
-        Error.Failure("Products.VariantError",$"The product with ID {productId} was not found.");
 }

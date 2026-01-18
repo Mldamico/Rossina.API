@@ -2,6 +2,7 @@
 using Rossina.Modules.Catalog.Application.Messaging;
 using Rossina.Modules.Catalog.Domain.Abstractions;
 using Rossina.Modules.Catalog.Domain.Catalog.Products;
+using Rossina.Modules.Catalog.Domain.Catalog.Variants;
 
 namespace Rossina.Modules.Catalog.Application.Catalog.Products.AddVariant;
 
@@ -17,15 +18,23 @@ public class AddVariantCommandHandler(IProductRepository productRepository, IUni
         {
             return Result.Failure<AddVariantResponse>(ProductsError.NotFound(command.ProductId));
         }
+
+        var existingVariant = await productRepository.GetProductVariant(command.ProductId, command.Size, command.Color);
+
+        if (existingVariant is not null)
+        {
+            return Result.Failure<AddVariantResponse>(VariantsError.VariantAlreadyExists(command.ProductId, command.Size, command.Color));
+        }
         
-        var result = product.AddVariant(
-            command.Size,
-            command.Color,
-            command.Price,
-            command.Stock);
+        Result result = product.AddVariant(
+                command.Size,
+                command.Color,
+                command.Price,
+                command.Stock);
+        
 
         if(result.IsFailure)
-            return Result.Failure<AddVariantResponse>(ProductsError.VariantError(command.ProductId));
+            return Result.Failure<AddVariantResponse>(VariantsError.VariantError(command.ProductId));
         
         await unitOfWork.SaveChangesAsync(cancellationToken);
         

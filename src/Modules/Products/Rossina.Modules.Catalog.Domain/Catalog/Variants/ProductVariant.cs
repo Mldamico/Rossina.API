@@ -1,6 +1,6 @@
 ﻿using Rossina.Modules.Catalog.Domain.Abstractions;
 
-namespace Rossina.Modules.Catalog.Domain.Catalog;
+namespace Rossina.Modules.Catalog.Domain.Catalog.Variants;
 
 public sealed class ProductVariant : Entity
 {
@@ -14,6 +14,18 @@ public sealed class ProductVariant : Entity
     
     public ProductVariant()
     {
+    }
+
+    public Result UpdatePrice(decimal newPrice)
+    {
+        Price = newPrice;
+        return Result.Success();
+    }
+
+    public Result UpdateStock(int newStock)
+    {
+        Stock = newStock;
+        return Result.Success();
     }
 
     public static Result<ProductVariant> Create(string size, string color, decimal price, int stock, Product product)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rossina.Modules.Catalog.Domain.Catalog;
 using Rossina.Modules.Catalog.Domain.Catalog.Products;
+using Rossina.Modules.Catalog.Domain.Catalog.Variants;
 using Rossina.Modules.Products.Infrastructure.Database;
 
 namespace Rossina.Modules.Products.Infrastructure.Repository;
@@ -28,5 +29,11 @@ internal sealed class ProductRepository(ProductsDbContext context) : IProductRep
             context.Products.Attach(product);
             entry.State = EntityState.Modified;
         }
+    }
+
+    public async Task<ProductVariant?> GetProductVariant(Guid productId, string size, string color)
+    {
+        return await context.ProductVariants.FirstOrDefaultAsync(x => x.ProductId == productId 
+            && x.Size == size && x.Color == color);
     }
 }

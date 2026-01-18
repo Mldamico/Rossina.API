@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Rossina.Modules.Catalog.Domain.Catalog;
+using Rossina.Modules.Catalog.Domain.Catalog.Variants;
 
 namespace Rossina.Modules.Products.Infrastructure.Configurations;
 
