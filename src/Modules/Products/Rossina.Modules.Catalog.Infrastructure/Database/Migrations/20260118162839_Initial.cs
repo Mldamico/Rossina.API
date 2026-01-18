@@ -58,7 +58,8 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                     color = table.Column<string>(type: "text", nullable: false),
                     price = table.Column<decimal>(type: "numeric", nullable: false),
                     stock = table.Column<int>(type: "integer", nullable: false),
-                    is_active = table.Column<bool>(type: "boolean", nullable: false)
+                    is_active = table.Column<bool>(type: "boolean", nullable: false),
+                    product_id1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,6 +71,12 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                         principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_product_variants_products_product_id1",
+                        column: x => x.product_id1,
+                        principalSchema: "products",
+                        principalTable: "products",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -77,6 +84,12 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                 schema: "products",
                 table: "product_variants",
                 column: "product_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_variants_product_id1",
+                schema: "products",
+                table: "product_variants",
+                column: "product_id1");
         }
 
         /// <inheritdoc />

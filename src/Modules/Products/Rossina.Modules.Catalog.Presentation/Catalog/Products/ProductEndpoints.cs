@@ -8,5 +8,6 @@ public static class ProductEndpoints
     {
         CreateProduct.MapEndpoint(app);
         GetProduct.MapEndpoint(app);
+        AddVariant.MapEndpoints(app);
     }
 }

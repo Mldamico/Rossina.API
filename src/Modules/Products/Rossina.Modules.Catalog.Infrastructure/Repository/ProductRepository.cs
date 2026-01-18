@@ -1,4 +1,5 @@
-﻿using Rossina.Modules.Catalog.Domain.Catalog;
+﻿using Microsoft.EntityFrameworkCore;
+using Rossina.Modules.Catalog.Domain.Catalog;
 using Rossina.Modules.Catalog.Domain.Catalog.Products;
 using Rossina.Modules.Products.Infrastructure.Database;
 
@@ -9,5 +10,23 @@ internal sealed class ProductRepository(ProductsDbContext context) : IProductRep
     public void Insert(Product product)
     {
         context.Products.Add(product);
+    }
+
+    public async Task<Product?> GetByIdAsync(Guid id)
+    {
+        return await context.Products
+            .Include("_variants")
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
+    
+    public void Update(Product product)
+    {
+        var entry = context.Entry(product);
+    
+        if (entry.State == EntityState.Detached)
+        {
+            context.Products.Attach(product);
+            entry.State = EntityState.Modified;
+        }
     }
 }

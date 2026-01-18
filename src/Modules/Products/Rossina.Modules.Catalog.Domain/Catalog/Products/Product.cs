@@ -12,8 +12,10 @@ public sealed class Product : Entity
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     public ProductStatus Status { get; private set; } = ProductStatus.Default;
-    public ICollection<ProductVariant> Variants { get; private set; }
+
     private readonly List<ProductVariant> _variants = new();
+    public ICollection<ProductVariant> VariantsInternal => _variants;
+
 
     public Product()
     {
@@ -37,14 +39,17 @@ public sealed class Product : Entity
         return Result.Success(product);
     }
 
-    public Result AddVariant(ProductVariant variant)
+    public Result AddVariant(string size,
+        string color,
+        decimal price,
+        int stock)
     {
-        var result = ProductVariant.Create(variant.Size, variant.Color, variant.Price, variant.Stock, this);
+        var result = ProductVariant.Create(size, color, price, stock, this);
 
         if (result.IsFailure)
             return result;
         
-        _variants.Add(variant);
+        _variants.Add(result.Value);
         
         UpdatedAt = DateTime.UtcNow;
 

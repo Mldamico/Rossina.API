@@ -11,7 +11,7 @@ internal static class CreateProduct
 {
     public static void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("products", async (Request request, ISender sender) =>
+        app.MapPost("/products", async (Request request, ISender sender) =>
             {
                 var command = new CreateProductCommand(
                     request.Title,
@@ -30,8 +30,8 @@ internal static class CreateProduct
 
 internal sealed class Request
 {
-    public string Title { get; set; }
-    public string Article { get; set; }
-    public string Description { get; set; }
+    public string Title { get; set; } = default!;
+    public string Article { get; set; } = default!;
+    public string Description { get; set; } = default!;
     public Guid BrandId { get; set; }
 }
