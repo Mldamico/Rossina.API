@@ -2,7 +2,7 @@
 
 namespace Rossina.Modules.Products.Presentation.Catalog.Products;
 
-public class ProductEndpoints
+public static class ProductEndpoints
 {
     public static void MapEndpoints(IEndpointRouteBuilder app)
     {

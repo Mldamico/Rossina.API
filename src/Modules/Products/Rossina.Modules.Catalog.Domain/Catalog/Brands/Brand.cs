@@ -1,8 +1,22 @@
-﻿namespace Rossina.Modules.Catalog.Domain.Catalog;
+﻿using Rossina.Modules.Catalog.Domain.Abstractions;
 
-public class Brand
+namespace Rossina.Modules.Catalog.Domain.Catalog;
+
+public sealed class Brand : Entity
 {
     public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string Logo { get; set; }
+    public string Name { get; set; } = default!;
+    public string Logo { get; set; } = default!;
+
+    public static Result<Brand> Create(string name, string logo)
+    {
+        var brand = new Brand
+        {
+            Id = Guid.NewGuid(),
+            Name = name,
+            Logo = logo
+        };
+        
+        return brand;
+    }
 }

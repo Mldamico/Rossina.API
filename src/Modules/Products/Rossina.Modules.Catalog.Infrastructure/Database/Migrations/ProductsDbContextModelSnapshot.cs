@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Rossina.Modules.Products.Api.Database;
 using Rossina.Modules.Products.Infrastructure.Database;
 
 #nullable disable
 
-namespace Rossina.Modules.Products.Api.Database.Migrations
+namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ProductsDbContext))]
     partial class ProductsDbContextModelSnapshot : ModelSnapshot
@@ -24,7 +23,7 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.Brand", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Brand", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +46,7 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                     b.ToTable("brands", "Products");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.Product", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,13 +87,10 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                     b.HasKey("Id")
                         .HasName("pk_products");
 
-                    b.HasIndex("BrandId")
-                        .HasDatabaseName("ix_products_brand_id");
-
                     b.ToTable("products", "Products");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.ProductVariant", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.ProductVariant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,31 +132,17 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                     b.ToTable("product_variants", "Products");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.Product", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.ProductVariant", b =>
                 {
-                    b.HasOne("Rossina.Modules.Products.Api.Products.Brand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_products_brands_brand_id");
-
-                    b.Navigation("Brand");
-                });
-
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.ProductVariant", b =>
-                {
-                    b.HasOne("Rossina.Modules.Products.Api.Products.Product", "Product")
+                    b.HasOne("Rossina.Modules.Catalog.Domain.Catalog.Product", null)
                         .WithMany("Variants")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_product_variants_products_product_id");
-
-                    b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.Product", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Product", b =>
                 {
                     b.Navigation("Variants");
                 });

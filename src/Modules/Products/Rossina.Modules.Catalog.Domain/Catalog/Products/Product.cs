@@ -8,17 +8,18 @@ public sealed class Product : Entity
     public string Title { get; private set; }
     public string Article { get; private set; }
     public string Description { get; private set; }
-    public Brand Brand { get; private set; }
+    public Guid BrandId { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     public ProductStatus Status { get; private set; } = ProductStatus.Default;
     public ICollection<ProductVariant> Variants { get; private set; }
+    private readonly List<ProductVariant> _variants = new();
 
     public Product()
     {
     }
 
-    public static Product Create(string title, string article, string description)
+    public static Result<Product> Create(string title, string article, string description, Brand brand)
     {
         var product = new Product
         {
@@ -26,6 +27,7 @@ public sealed class Product : Entity
             Title = title,
             Article = article,
             Description = description,
+            BrandId =  brand.Id,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
@@ -34,6 +36,22 @@ public sealed class Product : Entity
         
         return product;
     }
+
+    public Result AddVariant(ProductVariant variant)
+    {
+        var result = ProductVariant.Create(variant.Size, variant.Color, variant.Price, variant.Stock, this);
+
+        if (result.IsFailure)
+            return result;
+        
+        _variants.Add(variant);
+        
+        UpdatedAt = DateTime.UtcNow;
+
+        return Result.Success();
+
+    }
+    
 }
 
 public sealed class ProductCreatedDomainEvent(Guid productId) : DomainEvent

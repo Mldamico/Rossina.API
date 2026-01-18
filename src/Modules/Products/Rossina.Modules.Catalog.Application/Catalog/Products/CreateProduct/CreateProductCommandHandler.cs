@@ -1,19 +1,36 @@
-﻿using MediatR;
+﻿using System.Data.Common;
+using Dapper;
+using MediatR;
 using Rossina.Modules.Catalog.Application.Abstractions.Data;
+using Rossina.Modules.Catalog.Application.Catalog.Brands.GetBrand;
+using Rossina.Modules.Catalog.Application.Messaging;
+using Rossina.Modules.Catalog.Domain.Abstractions;
 using Rossina.Modules.Catalog.Domain.Catalog;
+using Rossina.Modules.Catalog.Domain.Catalog.Brands;
 using Rossina.Modules.Catalog.Domain.Catalog.Products;
 
 namespace Rossina.Modules.Catalog.Application.Catalog.Products.CreateProduct;
 
-internal sealed class CreateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateProductCommand, Guid>
+internal sealed class CreateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork, IBrandRepository brandRepository)
+    : ICommandHandler<CreateProductCommand, Guid>
 {
-    public async Task<Guid> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = Product.Create(request.Title, request.Article, request.Title);
+        
+        var brand = await brandRepository.FindBrandAsync(request.BrandId, cancellationToken);
 
-        productRepository.Insert(product);
+        if (brand is null)
+        {
+            return Result.Failure<Guid>(BrandsErrors.NotFound(request.BrandId));
+        }
+        
+        var result = Product.Create(request.Title, request.Article, request.Title, brand);
+
+        productRepository.Insert(result.Value);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return product.Id;
+        return result.Value.Id;
     }
+
+   
 }
+

@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Rossina.Modules.Products.Api.Database.Migrations
+namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,13 +45,6 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_products", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_products_brands_brand_id",
-                        column: x => x.brand_id,
-                        principalSchema: "Products",
-                        principalTable: "brands",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,27 +77,21 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                 schema: "Products",
                 table: "product_variants",
                 column: "product_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_products_brand_id",
-                schema: "Products",
-                table: "products",
-                column: "brand_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "brands",
+                schema: "Products");
+
+            migrationBuilder.DropTable(
                 name: "product_variants",
                 schema: "Products");
 
             migrationBuilder.DropTable(
                 name: "products",
-                schema: "Products");
-
-            migrationBuilder.DropTable(
-                name: "brands",
                 schema: "Products");
         }
     }

@@ -17,5 +17,9 @@
         <ProjectReference Include="..\Rossina.Modules.Catalog.Presentation\Rossina.Modules.Catalog.Presentation.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Database\Migrations\" />
+    </ItemGroup>
+
 
 </Project>

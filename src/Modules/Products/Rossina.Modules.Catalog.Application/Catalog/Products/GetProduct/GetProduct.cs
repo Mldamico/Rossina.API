@@ -2,15 +2,17 @@
 using Dapper;
 using MediatR;
 using Rossina.Modules.Catalog.Application.Abstractions.Data;
+using Rossina.Modules.Catalog.Application.Messaging;
+using Rossina.Modules.Catalog.Domain.Abstractions;
 
 namespace Rossina.Modules.Catalog.Application.Catalog.Products.GetProduct;
 
-public sealed record GetProductQuery(Guid Id) : IRequest<ProductResponse?>;
+public sealed record GetProductQuery(Guid Id) : IQuery<ProductResponse?>;
 
 internal sealed class GetProductQueryHandler(IDbConnectionFactory dbConnectionFactory)
-    : IRequestHandler<GetProductQuery, ProductResponse?>
+    : IQueryHandler<GetProductQuery, ProductResponse?>
 {
-    public async Task<ProductResponse?> Handle(GetProductQuery request, CancellationToken cancellationToken)
+    public async Task<Result<ProductResponse?>> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
         await using DbConnection connection = await dbConnectionFactory.OpenConnectionAsync();
 
@@ -25,8 +27,11 @@ internal sealed class GetProductQueryHandler(IDbConnectionFactory dbConnectionFa
              WHERE id = @Id";"
              """;
 
+        
         ProductResponse? product = await connection.QuerySingleOrDefaultAsync(sql, request);
 
         return product;
     }
+
+   
 }

@@ -8,10 +8,12 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
 using Rossina.Modules.Catalog.Application;
 using Rossina.Modules.Catalog.Application.Abstractions.Data;
+using Rossina.Modules.Catalog.Domain.Catalog.Brands;
 using Rossina.Modules.Catalog.Domain.Catalog.Products;
 using Rossina.Modules.Products.Infrastructure.Data;
 using Rossina.Modules.Products.Infrastructure.Database;
 using Rossina.Modules.Products.Infrastructure.Repository;
+using Rossina.Modules.Products.Presentation.Catalog.Brands;
 using Rossina.Modules.Products.Presentation.Catalog.Products;
 
 namespace Rossina.Modules.Products.Infrastructure;
@@ -32,6 +34,7 @@ public static class ProductsModule
     public static void MapEndpoints(IEndpointRouteBuilder app)
     {
         ProductEndpoints.MapEndpoints(app);
+        BrandEndpoints.MapEndpoints(app);
     }
 
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -52,6 +55,7 @@ public static class ProductsModule
         });
 
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ProductsDbContext>());
     }
 }
