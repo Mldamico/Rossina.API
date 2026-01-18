@@ -15,6 +15,6 @@ internal sealed class CreateBrandCommandHandler(IBrandRepository brandRepository
         brandRepository.Insert(result.Value);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         
-        return result.Value.Id;
+        return Result.Success(result.Value.Id);
     }
 }

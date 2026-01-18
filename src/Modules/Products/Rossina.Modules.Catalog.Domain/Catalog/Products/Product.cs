@@ -34,7 +34,7 @@ public sealed class Product : Entity
         
         product.RaiseDomainEvent(new ProductCreatedDomainEvent(product.Id));
         
-        return product;
+        return Result.Success(product);
     }
 
     public Result AddVariant(ProductVariant variant)

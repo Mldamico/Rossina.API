@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Rossina.Modules.Catalog.Application.Catalog.Products.CreateProduct;
+using Rossina.Modules.Products.Presentation.ApiResults;
 
 namespace Rossina.Modules.Products.Presentation.Catalog.Products;
 
@@ -19,9 +20,9 @@ internal static class CreateProduct
                     request.BrandId
                 );
 
-                var productId = await sender.Send(command);
+                var result = await sender.Send(command);
 
-                return Results.Ok(productId);
+                return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
             })
             .WithTags(Tags.Product);
     }

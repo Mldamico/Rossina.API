@@ -12,7 +12,7 @@ using Rossina.Modules.Products.Infrastructure.Database;
 namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ProductsDbContext))]
-    [Migration("20260117233457_Initial")]
+    [Migration("20260118124209_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("Products")
+                .HasDefaultSchema("products")
                 .HasAnnotation("ProductVersion", "10.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -46,7 +46,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                     b.HasKey("Id")
                         .HasName("pk_brands");
 
-                    b.ToTable("brands", "Products");
+                    b.ToTable("brands", "products");
                 });
 
             modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Product", b =>
@@ -90,7 +90,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                     b.HasKey("Id")
                         .HasName("pk_products");
 
-                    b.ToTable("products", "Products");
+                    b.ToTable("products", "products");
                 });
 
             modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.ProductVariant", b =>
@@ -132,7 +132,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_product_variants_product_id");
 
-                    b.ToTable("product_variants", "Products");
+                    b.ToTable("product_variants", "products");
                 });
 
             modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.ProductVariant", b =>

@@ -17,6 +17,6 @@ public sealed class Brand : Entity
             Logo = logo
         };
         
-        return brand;
+        return Result.Success(brand);
     }
 }

@@ -17,11 +17,6 @@ public sealed class ProductsDbContext(DbContextOptions<ProductsDbContext> option
     }
 }
 
-internal static class Schemas
-{
-    public static readonly string Products = "Products";
-}
-
 //Referencias
 //Aplication -: Domain
 //Infrastru -> Presentation y Application

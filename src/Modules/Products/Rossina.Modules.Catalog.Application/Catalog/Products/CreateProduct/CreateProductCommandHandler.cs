@@ -28,7 +28,7 @@ internal sealed class CreateProductCommandHandler(IProductRepository productRepo
 
         productRepository.Insert(result.Value);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return result.Value.Id;
+        return Result.Success(result.Value.Id);
     }
 
    

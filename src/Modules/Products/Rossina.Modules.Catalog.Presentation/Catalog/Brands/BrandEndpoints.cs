@@ -7,5 +7,6 @@ public static class BrandEndpoints
     public static void MapEndpoints(IEndpointRouteBuilder app)
     {
         CreateBrand.MapEndpoints(app);
+        GetBrand.MapEndpoint(app);
     }
 }

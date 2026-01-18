@@ -12,11 +12,11 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "Products");
+                name: "products");
 
             migrationBuilder.CreateTable(
                 name: "brands",
-                schema: "Products",
+                schema: "products",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -30,7 +30,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 
             migrationBuilder.CreateTable(
                 name: "products",
-                schema: "Products",
+                schema: "products",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -49,7 +49,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 
             migrationBuilder.CreateTable(
                 name: "product_variants",
-                schema: "Products",
+                schema: "products",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -66,7 +66,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                     table.ForeignKey(
                         name: "fk_product_variants_products_product_id",
                         column: x => x.product_id,
-                        principalSchema: "Products",
+                        principalSchema: "products",
                         principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -74,7 +74,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "ix_product_variants_product_id",
-                schema: "Products",
+                schema: "products",
                 table: "product_variants",
                 column: "product_id");
         }
@@ -84,15 +84,15 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
         {
             migrationBuilder.DropTable(
                 name: "brands",
-                schema: "Products");
+                schema: "products");
 
             migrationBuilder.DropTable(
                 name: "product_variants",
-                schema: "Products");
+                schema: "products");
 
             migrationBuilder.DropTable(
                 name: "products",
-                schema: "Products");
+                schema: "products");
         }
     }
 }

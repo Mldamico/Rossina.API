@@ -27,7 +27,7 @@ internal sealed class GetProductsQueryHandler(IDbConnectionFactory dbConnectionF
         
         int totalCount = await CountProductsAsync(dbConnection, parameters);
         
-        return new GetProductsResponse(query.Page, query.PageSize, totalCount, products);
+        return Result.Success(new GetProductsResponse(query.Page, query.PageSize, totalCount, products));
 
     }
 
