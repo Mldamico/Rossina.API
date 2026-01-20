@@ -9,6 +9,7 @@ public sealed class Product : Entity
     public string Title { get; private set; }
     public string Article { get; private set; }
     public string Description { get; private set; }
+    public bool Deleted { get; private set; } = false;
     public Guid BrandId { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
@@ -75,6 +76,15 @@ public sealed class Product : Entity
         if (stockResult.IsFailure)
             return stockResult;
 
+        UpdatedAt = DateTime.UtcNow;
+
+        return Result.Success();
+    }
+
+    public Result Delete()
+    {
+        Deleted = true;
+        
         UpdatedAt = DateTime.UtcNow;
 
         return Result.Success();
