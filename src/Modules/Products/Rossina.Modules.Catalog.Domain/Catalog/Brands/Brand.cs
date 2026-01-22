@@ -1,12 +1,13 @@
 ﻿using Rossina.Modules.Catalog.Domain.Abstractions;
 
-namespace Rossina.Modules.Catalog.Domain.Catalog;
+namespace Rossina.Modules.Catalog.Domain.Catalog.Brands;
 
 public sealed class Brand : Entity
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = default!;
     public string Logo { get; set; } = default!;
+    public bool Deleted { get; set; } = false;
 
     public static Result<Brand> Create(string name, string logo)
     {
@@ -18,5 +19,12 @@ public sealed class Brand : Entity
         };
         
         return Result.Success(brand);
+    }
+    
+    public Result<bool> Delete()
+    {
+        Deleted = true;
+
+        return Result.Success(true);
     }
 }

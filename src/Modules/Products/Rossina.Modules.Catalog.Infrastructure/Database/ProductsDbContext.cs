@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rossina.Modules.Catalog.Application.Abstractions.Data;
 using Rossina.Modules.Catalog.Domain.Catalog;
+using Rossina.Modules.Catalog.Domain.Catalog.Brands;
 using Rossina.Modules.Catalog.Domain.Catalog.Variants;
 using Rossina.Modules.Products.Infrastructure.Configurations;
 

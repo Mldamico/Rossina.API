@@ -23,7 +23,7 @@ public class GetBrand(IDbConnectionFactory dbConnectionFactory) : IQueryHandler<
                 logo AS {nameof(BrandResponse.Logo)}
             FROM 
                 Products.brands
-            WHERE id = @Id;
+            WHERE id = @Id AND deleted = 0;
             """;
 
         BrandResponse? brand = await connection.QuerySingleOrDefaultAsync<BrandResponse?>(sql, query);

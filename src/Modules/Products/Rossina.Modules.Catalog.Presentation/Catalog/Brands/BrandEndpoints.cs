@@ -8,5 +8,6 @@ public static class BrandEndpoints
     {
         CreateBrand.MapEndpoints(app);
         GetBrand.MapEndpoint(app);
+        DeleteBrand.MapEndpoints(app);
     }
 }
