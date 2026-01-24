@@ -34,13 +34,14 @@ internal sealed class GetProductsQueryHandler(IDbConnectionFactory dbConnectionF
     private static async Task<IReadOnlyCollection<ProductResponse>> GetProductsAsync(DbConnection dbConnection, GetProductsParameters parameters)
     {
         const string sql =
-            $$"""
+            $"""
               SELECT
-                 id AS {{nameof(ProductResponse.Id)}},
+                 id AS {nameof(ProductResponse.Id)},
                  title as {nameof(ProductResponse.Title)},
-                 article as {{nameof(ProductResponse.Article)}},
-                 description as {{nameof(ProductResponse.Description)}},
+                 article as {nameof(ProductResponse.Article)},
+                 description as {nameof(ProductResponse.Description)},
               FROM Products.products
+              WHERE deleted = 0
               ORDER BY title
               OFFSET @Skip
               LIMIT @Take;
@@ -54,9 +55,10 @@ internal sealed class GetProductsQueryHandler(IDbConnectionFactory dbConnectionF
     private static async Task<int> CountProductsAsync(DbConnection connection, GetProductsParameters parameters)
     {
         const string sql =
-            """
+            $"""
             SELECT COUNT(*)
             FROM Products.products
+            WHERE deleted = 0
             """;
 
         int totalCount = await connection.ExecuteScalarAsync<int>(sql, parameters);

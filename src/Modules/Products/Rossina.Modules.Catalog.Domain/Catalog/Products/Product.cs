@@ -17,7 +17,7 @@ public sealed class Product : Entity
     public ProductStatus Status { get; private set; } = ProductStatus.Default;
 
     private readonly List<ProductVariant> _variants = new();
-    public ICollection<ProductVariant> VariantsInternal => _variants;
+    public ICollection<ProductVariant> Variants  =>  _variants.AsReadOnly();
 
 
     public Product()

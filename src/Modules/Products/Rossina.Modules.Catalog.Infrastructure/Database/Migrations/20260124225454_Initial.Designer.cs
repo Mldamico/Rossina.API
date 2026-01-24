@@ -12,7 +12,7 @@ using Rossina.Modules.Products.Infrastructure.Database;
 namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ProductsDbContext))]
-    [Migration("20260118162839_Initial")]
+    [Migration("20260124225454_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -26,12 +26,16 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Brand", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Brands.Brand", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
 
                     b.Property<string>("Logo")
                         .IsRequired()
@@ -68,6 +72,10 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text")
@@ -92,7 +100,7 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                     b.ToTable("products", "products");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.ProductVariant", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Variants.ProductVariant", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
@@ -103,9 +111,9 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("color");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean")
-                        .HasColumnName("is_active");
+                        .HasColumnName("deleted");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric")
@@ -114,10 +122,6 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
-
-                    b.Property<Guid?>("ProductId1")
-                        .HasColumnType("uuid")
-                        .HasColumnName("product_id1");
 
                     b.Property<string>("Size")
                         .IsRequired()
@@ -134,32 +138,24 @@ namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_product_variants_product_id");
 
-                    b.HasIndex("ProductId1")
-                        .HasDatabaseName("ix_product_variants_product_id1");
-
                     b.ToTable("product_variants", "products");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.ProductVariant", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Variants.ProductVariant", b =>
                 {
-                    b.HasOne("Rossina.Modules.Catalog.Domain.Catalog.Product", null)
-                        .WithMany("_variants")
+                    b.HasOne("Rossina.Modules.Catalog.Domain.Catalog.Product", "Product")
+                        .WithMany("Variants")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_product_variants_products_product_id");
 
-                    b.HasOne("Rossina.Modules.Catalog.Domain.Catalog.Product", null)
-                        .WithMany("VariantsInternal")
-                        .HasForeignKey("ProductId1")
-                        .HasConstraintName("fk_product_variants_products_product_id1");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Product", b =>
                 {
-                    b.Navigation("VariantsInternal");
-
-                    b.Navigation("_variants");
+                    b.Navigation("Variants");
                 });
 #pragma warning restore 612, 618
         }

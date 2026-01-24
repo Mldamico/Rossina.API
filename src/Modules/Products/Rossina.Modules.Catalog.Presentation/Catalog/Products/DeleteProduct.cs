@@ -11,7 +11,7 @@ internal static class DeleteProduct
 {
     public static void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/product/{productId}/delete", async (Guid productId, ISender sender) =>
+        app.MapPost("/products/{productId}/delete", async (Guid productId, ISender sender) =>
         {
             var result = await sender.Send(new DeleteProductCommand(productId));
             

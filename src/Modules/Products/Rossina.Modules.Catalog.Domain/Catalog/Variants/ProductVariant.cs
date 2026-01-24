@@ -10,7 +10,8 @@ public sealed class ProductVariant : Entity
     public string Color { get;  private set; }
     public decimal Price { get; private set; }
     public int Stock { get; private set; }
-    public bool IsActive { get; private set; } = true;
+    public bool Deleted { get; private set; } = false;
+    public Product Product { get; private set; }
     
     public ProductVariant()
     {

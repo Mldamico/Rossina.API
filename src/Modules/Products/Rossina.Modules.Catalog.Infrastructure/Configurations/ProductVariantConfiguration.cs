@@ -17,6 +17,11 @@ internal sealed class ProductVariantConfiguration
 
         builder.Property(x => x.ProductId)
             .IsRequired();
+        
+        builder.HasOne(v => v.Product)
+            .WithMany(p => p.Variants)
+            .HasForeignKey(v => v.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(x => x.Size)
             .IsRequired();

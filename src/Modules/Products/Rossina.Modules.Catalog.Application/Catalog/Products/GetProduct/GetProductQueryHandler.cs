@@ -20,23 +20,54 @@ internal sealed class GetProductQueryHandler(IDbConnectionFactory dbConnectionFa
         const string sql =
             $"""
              SELECT
-                id AS {nameof(ProductResponse.Id)},
-                title as {nameof(ProductResponse.Title)},
-                article as {nameof(ProductResponse.Article)},
-                description as {nameof(ProductResponse.Description)},
-                created_at as {nameof(ProductResponse.CreatedAt)},
-                updated_at as {nameof(ProductResponse.UpdatedAt)}
-             FROM Products.products
-             WHERE id = @Id;
+                p.id AS {nameof(ProductVariantRow.Id)},
+                p.title as {nameof(ProductVariantRow.Title)},
+                p.article as {nameof(ProductVariantRow.Article)},
+                p.description as {nameof(ProductVariantRow.Description)},
+                p.created_at as {nameof(ProductVariantRow.CreatedAt)},
+                p.updated_at as {nameof(ProductVariantRow.UpdatedAt)},
+                v.size as {nameof(ProductVariantRow.Size)},
+                v.color as {nameof(ProductVariantRow.Color)},
+                v.price as {nameof(ProductVariantRow.Price)},
+                v.stock as {nameof(ProductVariantRow.Stock)}
+             FROM products.products p
+             INNER JOIN products.product_variants v ON p.id = v.product_id
+             WHERE p.id = @Id AND p.deleted = false AND v.deleted = false
              """;
 
         
-        ProductResponse? product = await connection.QuerySingleOrDefaultAsync<ProductResponse?>(sql, request);
+        var productResponse = (await connection.QueryAsync<ProductVariantRow>(sql, request)).ToList();
 
-        if (product == null)
+        if (productResponse.Count == 0)
         {
             return Result.Failure<ProductResponse>(ProductsError.NotFound(request.Id));
         }
+        
+        var product = productResponse
+            .GroupBy(r => new
+            {
+                r.Id,
+                r.Title,
+                r.Article,
+                r.Description,
+                r.CreatedAt,
+                r.UpdatedAt
+            })
+            .Select(g => new ProductResponse(
+                g.Key.Id,
+                g.Key.Title,
+                g.Key.Article,
+                g.Key.Description,
+                g.Key.CreatedAt,
+                g.Key.UpdatedAt,
+                g.Select(v => new VariantResponse(
+                    v.Size,
+                    v.Color,
+                    v.Price,
+                    v.Stock
+                )).ToArray()
+            ))
+            .Single();
 
         return Result.Success(product);
     }

@@ -16,8 +16,8 @@ internal sealed class ProductRepository(ProductsDbContext context) : IProductRep
     public async Task<Product?> GetByIdAsync(Guid id)
     {
         return await context.Products
-            .Include("_variants")
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .Include(p => p.Variants)
+            .FirstOrDefaultAsync(x => x.Id == id && !x.Deleted);
     }
     
     public void Update(Product product)

@@ -17,14 +17,11 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.UpdatedAt)
             .IsConcurrencyToken(false); 
         
-        builder.HasMany<ProductVariant>("_variants")
-            .WithOne()
-            .HasForeignKey(x => x.ProductId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.Navigation("_variants")
+        // builder.HasMany(p => p.Variants)
+        //     .WithOne(v => v.Product);
+        
+        builder.Navigation(p => p.Variants)
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .AutoInclude();
-        
     }
 }
