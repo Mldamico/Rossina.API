@@ -41,6 +41,24 @@ public sealed class Product : Entity
         
         return Result.Success(product);
     }
+    
+    public static Result<Product> Create(Guid id, string title, string article, string description, Guid brandId)
+    {
+        var product = new Product
+        {
+            Id = id,
+            Title = title,
+            Article = article,
+            Description = description,
+            BrandId =  brandId,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+        
+        product.RaiseDomainEvent(new ProductCreatedDomainEvent(product.Id));
+        
+        return Result.Success(product);
+    }
 
     public Result AddVariant(string size,
         string color,

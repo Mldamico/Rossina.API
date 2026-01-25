@@ -57,5 +57,6 @@ public static class ProductsModule
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ProductsDbContext>());
+        services.AddScoped<IDataSeeder, ProductDataSeeder>();
     }
 }

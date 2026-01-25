@@ -43,4 +43,19 @@ public sealed class ProductVariant : Entity
         
         return Result.Success(productVariant);
     }
+    
+    public static Result<ProductVariant> Create(Guid id, string size, string color, decimal price, int stock, Guid productId)
+    {
+        var productVariant = new ProductVariant
+        {
+            Id = id,
+            Size = size,
+            Color = color,
+            Price = price,
+            Stock = stock,
+            ProductId = productId
+        };
+        
+        return Result.Success(productVariant);
+    }
 }
