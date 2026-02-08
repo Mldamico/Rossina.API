@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi();
+
+builder.Configuration.AddModuleConfiguration(["catalog"]);
 builder.Services.AddApplication([Rossina.Modules.Catalog.Application.AssemblyReference.Assembly]);
 builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("Database")!);
 
