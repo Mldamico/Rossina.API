@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Rossina.Common.Infrastructure.Data;
 using Rossina.Modules.Products.Infrastructure.Database;
 
 namespace Rossina.Modules.Products.Infrastructure.Data;

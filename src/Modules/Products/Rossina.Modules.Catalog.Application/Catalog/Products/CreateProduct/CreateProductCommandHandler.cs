@@ -1,6 +1,6 @@
-﻿using Rossina.Modules.Catalog.Application.Abstractions.Data;
-using Rossina.Modules.Catalog.Application.Messaging;
-using Rossina.Modules.Catalog.Domain.Abstractions;
+﻿using Rossina.Common.Application.Messaging;
+using Rossina.Common.Domain.Abstractions;
+using Rossina.Modules.Catalog.Application.Abstractions.Data;
 using Rossina.Modules.Catalog.Domain.Catalog;
 using Rossina.Modules.Catalog.Domain.Catalog.Brands;
 using Rossina.Modules.Catalog.Domain.Catalog.Products;

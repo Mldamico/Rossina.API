@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
+using Rossina.Common.Application.Data;
 using Rossina.Modules.Catalog.Application;
 using Rossina.Modules.Catalog.Application.Abstractions.Data;
 using Rossina.Modules.Catalog.Domain.Catalog.Brands;
@@ -22,9 +23,7 @@ public static class ProductsModule
 {
     public static IServiceCollection AddProductsModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMediatR(config => { config.RegisterServicesFromAssemblies(AssemblyReference.Assembly); });
-
-        services.AddValidatorsFromAssembly(AssemblyReference.Assembly, includeInternalTypes: true);
+  
         
         services.AddInfrastructure(configuration);
 
@@ -41,10 +40,7 @@ public static class ProductsModule
     {
         var databaseConnectionString = configuration.GetConnectionString("Database")!;
 
-        NpgsqlDataSource npgsqlDataSource = new NpgsqlDataSourceBuilder(databaseConnectionString).Build();
-        services.TryAddSingleton(npgsqlDataSource);
-
-        services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
+   
 
         services.AddDbContext<ProductsDbContext>(options =>
         {

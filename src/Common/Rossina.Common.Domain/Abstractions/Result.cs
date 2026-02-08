@@ -1,8 +1,6 @@
-﻿
+﻿using System.Diagnostics.CodeAnalysis;
 
-using System.Diagnostics.CodeAnalysis;
-
-namespace Rossina.Modules.Catalog.Domain.Abstractions;
+namespace Rossina.Common.Domain.Abstractions;
 
 public class Result
 {

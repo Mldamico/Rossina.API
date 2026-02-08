@@ -1,4 +1,4 @@
-﻿using Rossina.Modules.Catalog.Application.Messaging;
+﻿using Rossina.Common.Application.Messaging;
 
 namespace Rossina.Modules.Catalog.Application.Catalog.Products.DeleteProduct;
 

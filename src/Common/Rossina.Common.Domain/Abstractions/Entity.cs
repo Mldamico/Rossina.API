@@ -1,6 +1,5 @@
-﻿using Rossina.Modules.Catalog.Domain.Catalog;
-
-namespace Rossina.Modules.Catalog.Domain.Abstractions;
+﻿
+namespace Rossina.Common.Domain.Abstractions;
 
 public abstract class Entity
 {

@@ -1,4 +1,5 @@
-﻿using Rossina.Modules.Catalog.Domain.Abstractions;
+﻿using Rossina.Common.Domain.Abstractions;
+using Rossina.Modules.Catalog.Domain.Catalog.Products;
 
 namespace Rossina.Modules.Catalog.Domain.Catalog.Variants;
 

@@ -1,11 +1,9 @@
 ﻿using System.Data.Common;
 using Dapper;
-using MediatR;
-using Rossina.Modules.Catalog.Application.Abstractions.Data;
-using Rossina.Modules.Catalog.Application.Catalog.Brands.GetBrand;
+using Rossina.Common.Application.Data;
+using Rossina.Common.Application.Messaging;
+using Rossina.Common.Domain.Abstractions;
 using Rossina.Modules.Catalog.Application.Catalog.Products.GetProduct;
-using Rossina.Modules.Catalog.Application.Messaging;
-using Rossina.Modules.Catalog.Domain.Abstractions;
 
 namespace Rossina.Modules.Catalog.Application.Catalog.Products.GetProducts;
 

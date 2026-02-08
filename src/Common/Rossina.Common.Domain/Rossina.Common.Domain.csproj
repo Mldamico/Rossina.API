@@ -5,12 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Common\Rossina.Common.Application\Rossina.Common.Application.csproj" />
-        <ProjectReference Include="..\Rossina.Modules.Catalog.Domain\Rossina.Modules.Catalog.Domain.csproj"/>
+        <PackageReference Include="Dapper" Version="2.1.66"/>
     </ItemGroup>
-
-
-
 </Project>

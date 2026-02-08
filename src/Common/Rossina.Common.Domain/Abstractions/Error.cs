@@ -1,4 +1,4 @@
-﻿namespace Rossina.Modules.Catalog.Domain.Abstractions;
+﻿namespace Rossina.Common.Domain.Abstractions;
 
 public record Error
 {

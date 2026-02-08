@@ -1,6 +1,7 @@
-﻿using Rossina.Modules.Catalog.Domain.Abstractions;
+﻿
+using Rossina.Common.Domain.Abstractions;
 
-namespace Rossina.Modules.Catalog.Application.Exceptions;
+namespace Rossina.Common.Application.Exceptions;
 
 public sealed class GlobalException : Exception
 {

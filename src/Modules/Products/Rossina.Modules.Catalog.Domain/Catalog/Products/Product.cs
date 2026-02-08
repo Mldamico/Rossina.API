@@ -1,8 +1,8 @@
-﻿using Rossina.Modules.Catalog.Domain.Abstractions;
+﻿using Rossina.Common.Domain.Abstractions;
 using Rossina.Modules.Catalog.Domain.Catalog.Brands;
 using Rossina.Modules.Catalog.Domain.Catalog.Variants;
 
-namespace Rossina.Modules.Catalog.Domain.Catalog;
+namespace Rossina.Modules.Catalog.Domain.Catalog.Products;
 
 public sealed class Product : Entity
 {

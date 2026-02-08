@@ -1,5 +1,7 @@
-﻿using Rossina.Modules.Catalog.Domain.Catalog;
+﻿
+
 using Rossina.Modules.Catalog.Domain.Catalog.Brands;
+using Rossina.Modules.Catalog.Domain.Catalog.Products;
 using Rossina.Modules.Catalog.Domain.Catalog.Variants;
 
 namespace Rossina.Modules.Products.Infrastructure.Data;

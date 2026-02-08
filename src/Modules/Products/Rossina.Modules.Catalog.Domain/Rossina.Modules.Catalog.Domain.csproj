@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\Rossina.Common.Domain\Rossina.Common.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Rossina.Modules.Catalog.Domain.Abstractions;
+using Rossina.Common.Domain.Abstractions;
 
-namespace Rossina.Modules.Catalog.Application.Messaging;
+namespace Rossina.Common.Application.Messaging;
 
 public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, Result>
     where TCommand : ICommand;

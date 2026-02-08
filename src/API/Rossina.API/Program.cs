@@ -1,4 +1,6 @@
 using Rossina.API.Extensions;
+using Rossina.Common.Application;
+using Rossina.Common.Infrastructure;
 using Rossina.Modules.Products.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi();
+builder.Services.AddApplication([Rossina.Modules.Catalog.Application.AssemblyReference.Assembly]);
+builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("Database")!);
+
 builder.Services.AddProductsModule(builder.Configuration);
 
 var app = builder.Build();
