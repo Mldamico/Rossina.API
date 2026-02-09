@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
 using Npgsql;
-using Rossina.Modules.Catalog.Application.Abstractions.Data;
+using Rossina.Common.Application.Data;
 
-namespace Rossina.Modules.Products.Infrastructure.Data;
+namespace Rossina.Common.Infrastructure.Data;
 
 internal sealed class DbConnectionFactory(NpgsqlDataSource dataSource) : IDbConnectionFactory
 {

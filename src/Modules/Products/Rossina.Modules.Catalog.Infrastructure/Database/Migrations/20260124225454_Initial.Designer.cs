@@ -5,34 +5,37 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Rossina.Modules.Products.Api.Database;
 using Rossina.Modules.Products.Infrastructure.Database;
 
 #nullable disable
 
-namespace Rossina.Modules.Products.Api.Database.Migrations
+namespace Rossina.Modules.Products.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ProductsDbContext))]
-    [Migration("20260113221422_initial")]
-    partial class initial
+    [Migration("20260124225454_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("Products")
+                .HasDefaultSchema("products")
                 .HasAnnotation("ProductVersion", "10.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.Brand", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Brands.Brand", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
 
                     b.Property<string>("Logo")
                         .IsRequired()
@@ -47,13 +50,12 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                     b.HasKey("Id")
                         .HasName("pk_brands");
 
-                    b.ToTable("brands", "Products");
+                    b.ToTable("brands", "products");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.Product", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Product", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
@@ -69,6 +71,10 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("deleted");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -91,16 +97,12 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                     b.HasKey("Id")
                         .HasName("pk_products");
 
-                    b.HasIndex("BrandId")
-                        .HasDatabaseName("ix_products_brand_id");
-
-                    b.ToTable("products", "Products");
+                    b.ToTable("products", "products");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.ProductVariant", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Variants.ProductVariant", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
@@ -109,9 +111,9 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                         .HasColumnType("text")
                         .HasColumnName("color");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("Deleted")
                         .HasColumnType("boolean")
-                        .HasColumnName("is_active");
+                        .HasColumnName("deleted");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric")
@@ -136,24 +138,12 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_product_variants_product_id");
 
-                    b.ToTable("product_variants", "Products");
+                    b.ToTable("product_variants", "products");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.Product", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Variants.ProductVariant", b =>
                 {
-                    b.HasOne("Rossina.Modules.Products.Api.Products.Brand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_products_brands_brand_id");
-
-                    b.Navigation("Brand");
-                });
-
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.ProductVariant", b =>
-                {
-                    b.HasOne("Rossina.Modules.Products.Api.Products.Product", "Product")
+                    b.HasOne("Rossina.Modules.Catalog.Domain.Catalog.Product", "Product")
                         .WithMany("Variants")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -163,7 +153,7 @@ namespace Rossina.Modules.Products.Api.Database.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Rossina.Modules.Products.Api.Products.Product", b =>
+            modelBuilder.Entity("Rossina.Modules.Catalog.Domain.Catalog.Product", b =>
                 {
                     b.Navigation("Variants");
                 });

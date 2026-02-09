@@ -7,13 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\Common\Rossina.Common.Application\Rossina.Common.Application.csproj" />
         <ProjectReference Include="..\Rossina.Modules.Catalog.Domain\Rossina.Modules.Catalog.Domain.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Dapper" Version="2.1.66"/>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
-        <PackageReference Include="MediatR" Version="12.5.0"/>
-    </ItemGroup>
+
 
 </Project>

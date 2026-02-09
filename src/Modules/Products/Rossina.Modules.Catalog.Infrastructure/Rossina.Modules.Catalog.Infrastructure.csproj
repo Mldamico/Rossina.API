@@ -7,14 +7,16 @@
         <RootNamespace>Rossina.Modules.Products.Infrastructure</RootNamespace>
     </PropertyGroup>
 
+
+
     <ItemGroup>
-        <PackageReference Include="EFCore.NamingConventions" Version="10.0.0"/>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0"/>
+        <ProjectReference Include="..\..\..\Common\Rossina.Common.Infrastructure\Rossina.Common.Infrastructure.csproj" />
+        <ProjectReference Include="..\Rossina.Modules.Catalog.Application\Rossina.Modules.Catalog.Application.csproj"/>
+        <ProjectReference Include="..\Rossina.Modules.Catalog.Presentation\Rossina.Modules.Catalog.Presentation.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Rossina.Modules.Catalog.Application\Rossina.Modules.Catalog.Application.csproj"/>
-        <ProjectReference Include="..\Rossina.Modules.Catalog.Presentation\Rossina.Modules.Catalog.Presentation.csproj"/>
+      <Folder Include="Database\Migrations\" />
     </ItemGroup>
 
 
