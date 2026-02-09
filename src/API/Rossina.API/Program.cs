@@ -2,8 +2,11 @@ using Rossina.API.Extensions;
 using Rossina.Common.Application;
 using Rossina.Common.Infrastructure;
 using Rossina.Modules.Products.Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -26,5 +29,6 @@ if (app.Environment.IsDevelopment())
 
 ProductsModule.MapEndpoints(app);
 
+app.UseSerilogRequestLogging(); 
 
 app.Run();

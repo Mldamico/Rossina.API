@@ -21,3 +21,11 @@
     ports:
       - 5432:5432
   
+  rossina.seq:
+    image: datalust/seq:latest
+    container_name: Rossina.Seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
