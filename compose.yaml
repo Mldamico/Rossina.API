@@ -29,3 +29,10 @@
     ports:
       - 5341:5341
       - 8081:80
+        
+  rossina.redis:
+    image: redis:latest
+    container_name: Rossina.Redis
+    restart: always
+    ports:
+      - 6379:6379
